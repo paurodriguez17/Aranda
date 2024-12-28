@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Control</title>
+    <!-- Google Fonts y Font Awesome para íconos -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f8ff;
+            color: #343a40;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #155a9a;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header .logo {
+            font-size: 45px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        header .btn-logout {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background-color: #4b4b4b;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+            margin-left: 90%;
+        }
+
+        header .btn-logout i {
+            font-size: 20px;
+        }
+
+        header .btn-logout:hover {
+            background-color: #6d6a6a;
+        }
+
+        main {
+            flex: 1;
+            padding: 40px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .card .icon {
+            font-size: 3rem;
+            color: #009aff;
+            margin-bottom: 15px;
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #155a9a;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #155a9a;
+            margin-bottom: 20px;
+        }
+
+        .card .btn {
+            background-color: #009aff;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+        }
+
+        .card .btn:hover {
+            background-color: #155a9a;
+        }
+
+        footer {
+            background-color: #f8f9fa;
+            text-align: center;
+            padding: 15px 0;
+            font-size: 0.9rem;
+            color: #6c757d;
+            border-top: 1px solid #e9ecef;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="/login/login.html" class="btn-logout">
+            <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+        </a>
+        <h1 class="logo">¡Bienvenido!</h1>
+    </header>
+    <main>
+        <div class="card">
+            <i class="fas fa-exchange-alt icon"></i>
+            <h2>Cambios de Mercadería</h2>
+            <p>Gestiona y registra los cambios de mercadería.</p>
+            <a href="/inicio_empleado/cambios.html" class="btn">Entrar</a>
+        </div>        
+        <div class="card">
+            <i class="fas fa-industry icon"></i>
+            <h2>Producción Diaria</h2>
+            <p>Consulta y registra la producción diaria de la fábrica.</p>
+            <a href="/inicio_empleado/produccion.html" class="btn">Entrar</a>
+        </div>
+        <div class="card">
+            <i class="fas fa-warehouse icon"></i>
+            <h2>Stock Materia Prima</h2>
+            <p>Consulta y actualiza el stock de materia prima.</p>
+            <a href="/inicio_empleado/stockmp.html" class="btn">Entrar</a>
+        </div>
+        <div class="card">
+            <i class="fas fa-box icon"></i>
+            <h2>Stock Mercadería</h2>
+            <p>Gestiona el stock de mercadería fácilmente.</p>
+            <a href="/inicio_empleado/mercaderia.html" class="btn">Entrar</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; Pastas Aranda 2025</p>
+    </footer>
+</body>
+
+</html>

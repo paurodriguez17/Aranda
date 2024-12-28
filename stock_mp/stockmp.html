@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Stock de Materia Prima</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Fondo general */
+        body {
+            background-color: #f0f8ff;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Header */
+        .header {
+            background-color: #155a9a;
+            color: #ecf0f1;
+            padding: 50px 20px;
+            text-align: center;
+            border-bottom: 3px solid #009aff;
+        }
+
+        .header h1 {
+            font-size: 2.8rem;
+            font-weight: bold;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+        }
+
+        /* Botón Volver a Inicio */
+        .header .btn-secondary {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #009aff; /* Azul claro */
+            border: 1px solid #155a9a; /* Azul oscuro */
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .header .btn-secondary:hover {
+            background-color: #155a9a; /* Azul oscuro */
+            color: white;
+            transform: scale(1.05); /* Efecto de hover */
+        }
+
+        .header .btn-secondary:active {
+            background-color: #0078d4; /* Azul intermedio al presionar */
+            transform: scale(1);
+        }
+
+        /* Tarjetas */
+        .form-card {
+            background: #ffffff;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            border-radius: 10px;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .form-card:hover {
+            transform: scale(1.02);
+        }
+
+        /* Botón Registrar Movimiento */
+        .btn-primary {
+            background-color: #009aff; /* Azul claro */
+            border: 1px solid #155a9a; /* Azul oscuro */
+            color: white;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #155a9a; /* Azul oscuro */
+            transform: scale(1.05); /* Efecto de hover */
+            color: white;
+        }
+
+        .btn-primary:active {
+            background-color: #0078d4; /* Azul intermedio al presionar */
+            transform: scale(1);
+        }
+
+        /* Tablas */
+        .table-container {
+            margin-top: 40px;
+        }
+
+        .table-bordered {
+            border: 1px solid #dcdcdc;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="/inicio/inicio.html" class="btn btn-secondary">
+            <i class="fas fa-home me-2"></i>Volver a Inicio
+        </a>
+        <h1>Control de Stock de Materia Prima</h1>
+    </header>
+
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="form-card mb-4">
+                    <h3 class="text-center mb-4"><i class="fas fa-edit me-2"></i>Registrar Movimiento</h3>
+                    <form id="materiaPrimaForm">
+                        <div class="mb-3">
+                            <label for="nuevoProducto" class="form-label">Agregar Nuevo Producto (Opcional)</label>
+                            <input type="text" id="nuevoProducto" class="form-control" placeholder="Ingrese el nombre del nuevo producto">
+                            <button type="button" id="agregarProducto" class="btn btn-secondary mt-2 w-100">
+                                <i class="fas fa-plus me-2"></i>Agregar Producto
+                            </button>
+                        </div>
+                        <div class="mb-3">
+                            <label for="producto" class="form-label">Materia Prima</label>
+                            <select id="producto" class="form-select" required>
+                                <option value="" disabled selected>Seleccione una opción</option>
+                            </select>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="lote" class="form-label">Lote</label>
+                            <input type="text" id="lote" class="form-control" placeholder="Ingrese el lote del producto. Ej: 001" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="movimiento" class="form-label">Movimiento</label>
+                            <select id="movimiento" class="form-select" required>
+                                <option value="Ingreso">Ingreso</option>
+                                <option value="Egreso">Egreso</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cantidad" class="form-label">Cantidad</label>
+                            <input type="number" id="cantidad" class="form-control" min="1" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 mt-3">
+                            <i class="fas fa-check-circle me-2"></i> Registrar Movimiento
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row table-container">
+            <div class="col-md-8 mx-auto">
+                <h3 class="text-center mb-3">Disponibilidad de Materia Prima</h3>
+                <table class="table table-bordered table-hover text-center">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Lote</th>
+                            <th>Disponibilidad</th>
+                        </tr>
+                    </thead>
+                    <tbody id="disponibilidadTableBody">
+                        <!-- La disponibilidad se llenará automáticamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="stockmp.js"></script>
+</body>
+</html>

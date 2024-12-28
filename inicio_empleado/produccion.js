@@ -1,0 +1,132 @@
+document.addEventListener("DOMContentLoaded", () => {
+    const formProduccion = document.getElementById("formProduccion");
+    const tablaProduccion = document.getElementById("tablaProduccion");
+    const filtroFecha = document.getElementById("filtroFecha"); // Campo para filtrar por fecha
+    const btnFiltrar = document.getElementById("btnFiltrar"); // Botón para filtrar
+
+    let editId = null;
+
+    // Define la función cargarProduccion
+    const cargarProduccion = async (fecha = null) => {
+        try {
+            const url = fecha
+                ? `http://localhost:3000/traer_produccion?fecha=${fecha}`
+                : 'http://localhost:3000/traer_produccion';
+            const response = await fetch(url, { method: 'GET' });
+            if (!response.ok) {
+                throw new Error('Error al obtener los datos de producción.');
+            }
+            const data = await response.json();
+            tablaProduccion.innerHTML = "";
+            data.forEach(item => {
+                const fila = `
+                    <tr>
+                        <td>${item.producto}</td>
+                        <td>${item.fecha}</td>
+                        <td>${item.produccion}</td>
+                        <td>${item.fecha_vencimiento}</td>
+                        <td>${item.numero_lote}</td>
+                        <td>
+                            <button class="btn btn-warning btn-sm" onclick="editarRegistro(${item.id}, '${item.producto}', '${item.fecha}', ${item.produccion}, '${item.fecha_vencimiento}', '${item.numero_lote}')">Editar</button>
+                            <button class="btn btn-danger btn-sm" onclick="eliminarRegistro(${item.id})">Eliminar</button>
+                        </td>
+                    </tr>
+                `;
+                tablaProduccion.insertAdjacentHTML('beforeend', fila);
+            });
+        } catch (error) {
+            console.error('Error al cargar la producción:', error);
+        }
+    };
+
+    // Llama a cargarProduccion sin filtros al inicio
+    cargarProduccion();
+
+    // Filtrar por fecha (independiente del formulario)
+    btnFiltrar.addEventListener("click", () => {
+        const fecha = filtroFecha.value; // Obtén la fecha seleccionada
+        cargarProduccion(fecha); // Llama a cargarProduccion con la fecha (si está vacía, cargará todo)
+    });
+
+    formProduccion.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const producto = document.getElementById("producto").value;
+        const fecha = document.getElementById("fecha").value;
+        const produccionDia = document.getElementById("produccionDia").value;
+        const fechaVencimiento = document.getElementById("fechaVencimiento").value;
+        const numeroLote = document.getElementById("numeroLote").value;
+
+        if (!producto || !fecha || !produccionDia || !fechaVencimiento || !numeroLote) {
+            alert("Todos los campos son obligatorios.");
+            return;
+        }
+
+        const registro = {
+            producto,
+            fecha,
+            produccion: produccionDia,
+            fecha_vencimiento: fechaVencimiento,
+            numero_lote: numeroLote
+        };
+
+        try {
+            let response;
+            if (editId) {
+                response = await fetch(`http://localhost:3000/produccion/${editId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(registro)
+                });
+                editId = null;
+            } else {
+                response = await fetch('http://localhost:3000/produccion', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(registro)
+                });
+            }
+            if (response.ok) {
+                alert(editId ? 'Producción actualizada con éxito.' : 'Producción registrada con éxito.');
+                formProduccion.reset();
+                cargarProduccion(); 
+            } else {
+                const error = await response.json();
+                alert(`Error: ${error.message}`);
+            }
+        } catch (error) {
+            console.error('Error al registrar o editar la producción:', error);
+        }
+    });
+
+    window.editarRegistro = (id, producto, fecha, produccion, fechaVencimiento, numeroLote) => {
+        document.getElementById("producto").value = producto;
+        document.getElementById("fecha").value = fecha;
+        document.getElementById("produccionDia").value = produccion;
+        document.getElementById("fechaVencimiento").value = fechaVencimiento;
+        document.getElementById("numeroLote").value = numeroLote;
+
+        editId = id; 
+        window.scrollTo(0, 0); 
+    };
+
+    window.eliminarRegistro = async (id) => {
+        if (!confirm("¿Estás seguro de que deseas eliminar este registro?")) {
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:3000/produccion/${id}`, { method: 'DELETE' });
+
+            if (response.ok) {
+                alert('Producción eliminada con éxito.');
+                cargarProduccion(); 
+            } else {
+                const error = await response.json();
+                alert(`Error: ${error.message}`);
+            }
+        } catch (error) {
+            console.error('Error al eliminar la producción:', error);
+        }
+    };
+});

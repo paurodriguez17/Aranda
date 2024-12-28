@@ -1,0 +1,115 @@
+/* Estilo general */
+body {
+    background-color: #f0f8ff;
+    color: #333;
+}
+
+/* Encabezados y botones */
+h2 {
+    color: #155a9a;
+}
+
+.card-header {
+    background-color: #155a9a;
+    color: #ffffff;
+}
+
+.card-header.bg-primary {
+    background-color: #155a9a  !important;
+}
+
+.card-header.bg-secondary {
+    background-color: #155a9a !important;
+}
+button {
+    font-size: 0.9rem; /* Tamaño más pequeño */
+    border-radius: 20px; /* Bordes redondeados */
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 6px 12px; /* Tamaño compacto */
+    display: inline-flex; /* Alinear contenido interno */
+    align-items: center; /* Centrar verticalmente */
+    gap: 5px; /* Separación entre ícono y texto */
+}
+
+button.btn-secondary {
+    background: #009aff; /* Azul claro */
+    color: white; /* Texto blanco */
+    border: none; /* Sin borde adicional */
+}
+
+button.btn-secondary:hover {
+    background: #154b8c; /* Azul oscuro */
+    transform: scale(1.05);
+}
+.text-end {
+    text-align: end;
+}
+/* Botones principales */
+.btn {
+    background-color: #009aff;
+    border-color: #155a9a;
+    border-radius: 10px;
+    margin-top: 5px;
+    color: #ffffff;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #155a9a;
+    border-color: #009aff;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(21, 90, 154, 0.4); /* Sombra sutil */
+}
+
+/* Botones de borde (outline) */
+.btn-outline-secondary {
+    background-color: transparent;
+    border-radius: 10px;
+    color: #009aff;
+    border-color: #155a9a;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #155a9a;
+    color: #ffffff;
+    box-shadow: 0 4px 8px rgba(21, 90, 154, 0.4); /* Sombra sutil */
+    transform: scale(1.05);
+    border-color: #009aff;
+}
+
+/* Tablas */
+.table thead.thead-dark th {
+    background-color: #155a9a;
+    color: #ffffff;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #e1ecf7;
+}
+
+/* Formularios */
+.form-control {
+    border-color: #155a9a;
+}
+
+.form-control:focus {
+    border-color: #009aff;
+    box-shadow: 0 0 5px #009aff;
+}
+
+/* Modales */
+.modal-content {
+    border: 2px solid #155a9a;
+}
+
+.modal-header {
+    background-color: #155a9a;
+    color: #ffffff;
+}
+
+.modal-title {
+    color: #ffffff;
+}
