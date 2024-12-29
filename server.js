@@ -5,6 +5,8 @@ const mysql = require('mysql2');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const port = 3000;
+const path = require('path');
+
 
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -13,11 +15,13 @@ app.use(cors());
 app.use(express.json());
 const nodemailer = require('nodemailer');
 
-app.use(express.static('public'));
-
-// Ruta principal
+app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/public/inicio.html');
+    res.sendFile(path.join(__dirname, 'public', 'login', 'login.html'));
+});
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ message: 'Error interno del servidor' });
 });
 
 
@@ -726,6 +730,7 @@ app.post('/register', (req, res) => {
     if (!username || !password || !userType) {
         return res.status(400).json({ message: 'Todos los campos son obligatorios.' });
     }
+
     bcrypt.hash(password, 10, (err, hashedPassword) => {
         if (err) {
             return res.status(500).json({ message: 'Error en la encriptación de la contraseña.' });
@@ -740,8 +745,8 @@ app.post('/register', (req, res) => {
             res.status(201).json({ id: result.insertId, message: 'Usuario registrado con éxito' });
         });
     });
-});
-app.post('/login', (req, res) => {
+})
+app.post('/iniciarSesion', (req, res) => {
     const { username, password } = req.body;
 
     if (!username || !password) {
@@ -759,17 +764,22 @@ app.post('/login', (req, res) => {
         }
 
         const user = results[0];
-        if (user.autorizado === 0) {
-            return res.status(403).json({ message: 'Cuenta no autorizada.' });
-        }
-
         bcrypt.compare(password, user.password, (err, isMatch) => {
             if (err) {
                 return res.status(500).json({ message: 'Error en la comparación de contraseñas.' });
             }
 
             if (isMatch) {
-                res.json({ success: true, username: user.username, userType: user.userType, autorizado: user.autorizado });
+                if (user.autorizado) { // Verificación de autorizado
+                    res.json({
+                        success: true,
+                        username: user.username,
+                        userType: user.userType,
+                        autorizado: user.autorizado
+                    });
+                } else {
+                    res.json({ success: false, autorizado: false });
+                }
             } else {
                 res.status(401).json({ message: 'Contraseña incorrecta.' });
             }
@@ -1353,6 +1363,9 @@ app.delete('/clientes/:id', (req, res) => {
         }
         res.json({ message: 'Cliente eliminado con éxito' });
     });
+});
+app.use((req, res) => {
+    res.status(404).json({ message: 'Página no encontrada' });
 });
 app.listen(port, () => {
     console.log(`Servidor corriendo en http://localhost:${port}`);

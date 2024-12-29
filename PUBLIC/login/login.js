@@ -3,7 +3,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
 
-    fetch('http://localhost:3000/login', {
+    fetch('http://localhost:3000/iniciarSesion', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -14,7 +14,6 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     .then(data => {
         const messageElement = document.getElementById('message');
         const welcomeMessageElement = document.getElementById('welcomeMessage');
-
         if (data.success) {
             if (!data.autorizado) {
                 messageElement.textContent = 'Error: Su cuenta no ha sido autorizada aún.';
@@ -22,12 +21,10 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
             } else {
                 messageElement.textContent = '';
                 welcomeMessageElement.textContent = '¡Bienvenido, ' + data.username + '!';
-
-                // Redirigir según el tipo de usuario
+        
                 setTimeout(() => {
                     if (data.userType === 'empleado') {
                         window.location.href = '/inicio_empleado/inicio_empleado.html';
-                    
                     } else {
                         window.location.href = '/inicio/inicio.html';
                     }
@@ -37,6 +34,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
             messageElement.textContent = 'Error: ' + data.message;
             welcomeMessageElement.textContent = '';
         }
+        
 
         setTimeout(() => {
             messageElement.textContent = '';
