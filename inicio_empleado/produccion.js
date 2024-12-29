@@ -1,12 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
     const formProduccion = document.getElementById("formProduccion");
     const tablaProduccion = document.getElementById("tablaProduccion");
-    const filtroFecha = document.getElementById("filtroFecha"); // Campo para filtrar por fecha
-    const btnFiltrar = document.getElementById("btnFiltrar"); // Botón para filtrar
+    const filtroFecha = document.getElementById("filtroFecha"); 
+    const btnFiltrar = document.getElementById("btnFiltrar"); 
 
     let editId = null;
-
-    // Define la función cargarProduccion
+    const formatearFecha = (fechaISO) => {
+        const fecha = new Date(fechaISO);
+        const dia = fecha.getDate().toString().padStart(2, '0');
+        const mes = (fecha.getMonth() + 1).toString().padStart(2, '0'); 
+        const anio = fecha.getFullYear();
+        return `${dia}/${mes}/${anio}`;
+    };
     const cargarProduccion = async (fecha = null) => {
         try {
             const url = fecha
@@ -20,34 +25,29 @@ document.addEventListener("DOMContentLoaded", () => {
             tablaProduccion.innerHTML = "";
             data.forEach(item => {
                 const fila = `
-                    <tr>
-                        <td>${item.producto}</td>
-                        <td>${item.fecha}</td>
-                        <td>${item.produccion}</td>
-                        <td>${item.fecha_vencimiento}</td>
-                        <td>${item.numero_lote}</td>
-                        <td>
-                            <button class="btn btn-warning btn-sm" onclick="editarRegistro(${item.id}, '${item.producto}', '${item.fecha}', ${item.produccion}, '${item.fecha_vencimiento}', '${item.numero_lote}')">Editar</button>
-                            <button class="btn btn-danger btn-sm" onclick="eliminarRegistro(${item.id})">Eliminar</button>
-                        </td>
-                    </tr>
-                `;
+                <tr>
+                    <td>${item.producto}</td>
+                    <td>${formatearFecha(item.fecha)}</td>
+                    <td>${item.produccion}</td>
+                    <td>${formatearFecha(item.fecha_vencimiento)}</td>
+                    <td>${item.numero_lote}</td>
+                    <td>
+                        <button class="btn btn-warning btn-sm" onclick="editarRegistro(${item.id}, '${item.producto}', '${item.fecha}', ${item.produccion}, '${item.fecha_vencimiento}', '${item.numero_lote}')">Editar</button>
+                        <button class="btn btn-danger btn-sm" onclick="eliminarRegistro(${item.id})">Eliminar</button>
+                    </td>
+                </tr>
+            `;
                 tablaProduccion.insertAdjacentHTML('beforeend', fila);
             });
         } catch (error) {
             console.error('Error al cargar la producción:', error);
         }
     };
-
-    // Llama a cargarProduccion sin filtros al inicio
     cargarProduccion();
-
-    // Filtrar por fecha (independiente del formulario)
     btnFiltrar.addEventListener("click", () => {
-        const fecha = filtroFecha.value; // Obtén la fecha seleccionada
-        cargarProduccion(fecha); // Llama a cargarProduccion con la fecha (si está vacía, cargará todo)
+        const fecha = filtroFecha.value; 
+        cargarProduccion(fecha); 
     });
-
     formProduccion.addEventListener("submit", async (e) => {
         e.preventDefault();
 
@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (response.ok) {
                 alert(editId ? 'Producción actualizada con éxito.' : 'Producción registrada con éxito.');
                 formProduccion.reset();
-                cargarProduccion(); 
+                cargarProduccion();
             } else {
                 const error = await response.json();
                 alert(`Error: ${error.message}`);
@@ -106,8 +106,8 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("fechaVencimiento").value = fechaVencimiento;
         document.getElementById("numeroLote").value = numeroLote;
 
-        editId = id; 
-        window.scrollTo(0, 0); 
+        editId = id;
+        window.scrollTo(0, 0);
     };
 
     window.eliminarRegistro = async (id) => {
@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (response.ok) {
                 alert('Producción eliminada con éxito.');
-                cargarProduccion(); 
+                cargarProduccion();
             } else {
                 const error = await response.json();
                 alert(`Error: ${error.message}`);

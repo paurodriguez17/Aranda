@@ -308,7 +308,7 @@ function cargarMercaderia(idCliente) {
     const tabla = document.getElementById('mercaderiaTabla');
     tabla.innerHTML = '<tr><td colspan="5" class="text-center">Cargando...</td></tr>'; // Indicador de carga
 
-    fetch(`http://localhost:3000/mercaderia/${idCliente}`)
+    fetch(`http://localhost:3000/mercaderiaCliente/${idCliente}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Error al obtener los datos de la mercadería.');
@@ -371,7 +371,7 @@ document.getElementById('mercaderiaForm').addEventListener('submit', function (e
         return;
     }
 
-    fetch('http://localhost:3000/mercaderia', {
+    fetch('http://localhost:3000/mercaderiaCliente', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -394,7 +394,7 @@ document.getElementById('mercaderiaForm').addEventListener('submit', function (e
 function eliminarMercaderia(idMercaderia) {
     if (!confirm('¿Está seguro de eliminar este registro?')) return;
 
-    fetch(`http://localhost:3000/mercaderia/${idMercaderia}`, { method: 'DELETE' })
+    fetch(`http://localhost:3000/mercaderiaCliente/${idMercaderia}`, { method: 'DELETE' })
         .then(response => {
             if (!response.ok) {
                 throw new Error('Error al eliminar mercadería.');

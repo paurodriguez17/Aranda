@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio Distribuidor</title>
+    <title>Panel de Control</title>
     <!-- Google Fonts y Font Awesome para íconos -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
@@ -12,23 +12,43 @@
         body {
             margin: 0;
             font-family: 'Inter', sans-serif;
-            background-color: #f0f8ff;
-            color: #343a40;
+            background-color: #ffffff;
+            color: #5b1f0a;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
 
         header {
-            background-color: #155a9a;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
+            color: #5b1f0a;
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        header .logo-container {
+            position: absolute;
+            left: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        header .logo-container img {
+            width: 100%;
+            height: auto;
         }
 
         header .logo {
-            font-size: 45px;
+            font-size: 28px;
             font-weight: bold;
             margin: 0;
         }
@@ -37,15 +57,15 @@
             display: inline-flex;
             align-items: center;
             gap: 5px;
-            background-color: #4b4b4b;
+            background-color: #a61b1b;
             color: #fff;
             padding: 10px 20px;
             border-radius: 8px;
             text-decoration: none;
             font-weight: bold;
-            margin-top: 10px;
             transition: background-color 0.3s ease;
-            margin-left: 90%;
+            position: absolute;
+            right: 40px;
         }
 
         header .btn-logout i {
@@ -53,7 +73,7 @@
         }
 
         header .btn-logout:hover {
-            background-color: #6d6a6a;
+            background-color: #8d1212;
         }
 
         main {
@@ -66,10 +86,11 @@
         }
 
         .card {
-            background-color: #ffffff;
+            background-color: #faf3e0;
             border-radius: 12px;
             box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
             width: 300px;
+            height: 270px;
             padding: 20px;
             text-align: center;
             transition: transform 0.3s, box-shadow 0.3s;
@@ -82,25 +103,25 @@
 
         .card .icon {
             font-size: 3rem;
-            color: #009aff;
+            color: #a61b1b;
             margin-bottom: 15px;
         }
 
         .card h2 {
             font-size: 1.5rem;
             font-weight: bold;
-            color: #155a9a;
+            color: #8a260c;
             margin-bottom: 10px;
         }
 
         .card p {
-            color: #155a9a;
+            color: #5b1f0a;
             margin-bottom: 20px;
         }
 
         .card .btn {
-            background-color: #009aff;
-            color: #fff;
+            background-color: #ffda77;
+            color: #5b1f0a;
             padding: 10px 15px;
             border-radius: 8px;
             text-decoration: none;
@@ -110,22 +131,23 @@
         }
 
         .card .btn:hover {
-            background-color: #155a9a;
+            background-color: #d8ad09;
         }
 
         footer {
-            background-color: #f8f9fa;
             text-align: center;
             padding: 15px 0;
             font-size: 0.9rem;
-            color: #6c757d;
-            border-top: 1px solid #e9ecef;
+            color: #5b1f0a;
         }
     </style>
 </head>
 
 <body>
     <header>
+        <div class="logo-container">
+            <img src="aranda.jpg" alt="Logo Aranda">
+        </div>
         <a href="/login/login.html" class="btn-logout">
             <i class="fas fa-sign-out-alt"></i> Cerrar sesión
         </a>

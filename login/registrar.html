@@ -8,56 +8,71 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f0f8ff;
-            font-family: Arial, sans-serif;
+            background-color: #ffffff; /* Fondo blanco */
+            font-family: 'Inter', sans-serif; /* Fuente de inicio.css */
+            color: #5b1f0a; /* Color de texto principal */
         }
+    
         .container {
             margin-top: 60px;
         }
-
+    
         .card {
-            background: #ffffff;
+            background: #faf3e0; /* Fondo claro */
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
+            border-radius: 12px; /* Bordes consistentes con inicio.css */
+            padding: 20px;
         }
-
+    
         .card h1 {
-            color: #155a9a;
+            color: #8a260c; /* Marrón oscuro */
             font-size: 1.8rem;
             font-weight: bold;
             margin-bottom: 20px;
         }
-
+    
         .form-label {
-            color: #155a9a;
+            color: #5b1f0a; /* Marrón */
             font-weight: bold;
         }
-
+    
         .btn-success {
-            background-color: #009aff;
-            border: 1px solid #155a9a;
+            background-color: #ffda77; /* Amarillo claro */
+            border: 1px solid #d8ad09; /* Amarillo oscuro */
+            color: #5b1f0a; /* Marrón */
             font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 8px; /* Bordes redondeados */
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
-
+    
         .btn-success:hover {
-            background-color: #155a9a;
+            background-color: #d8ad09; /* Amarillo oscuro */
+            transform: scale(1.05);
+            color: #ffffff; /* Texto blanco al pasar el mouse */
+        }
+    
+        .btn-outline-secondary {
+            border-color: #8a260c; /* Marrón oscuro */
+            color: #8a260c; /* Marrón oscuro */
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+    
+        .btn-outline-secondary:hover {
+            background-color: #faf3e0; /* Fondo claro */
+            color: #5b1f0a; /* Marrón */
             transform: scale(1.05);
         }
-
-        .btn-outline-secondary {
-            border-color: #009aff;
-            color: #009aff;
-        }
-
-        .btn-outline-secondary:hover {
-            background-color: #009aff;
-            color: white;
-        }
-
+    
         #message {
             font-weight: bold;
+            color: #5b1f0a; /* Marrón */
         }
     </style>
+    
 </head>
 <body>
     <div class="container d-flex justify-content-center align-items-center">

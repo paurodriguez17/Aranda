@@ -227,7 +227,7 @@ dbModulos.query(`
     if (err) throw err;
     console.log('Tabla de mercaderiaClientes verificada/creada.');
 });
-app.post('/mercaderia', (req, res) => {
+app.post('/mercaderiaCliente', (req, res) => {
     const { idCliente, descripcion, cantidad, precio, fecha } = req.body;
 
     if (!idCliente || !descripcion || !cantidad || !precio || !fecha) {
@@ -246,7 +246,7 @@ app.post('/mercaderia', (req, res) => {
         res.status(201).json({ id: result.insertId, message: 'Mercadería agregada con éxito' });
     });
 });
-app.get('/mercaderia/:idCliente', (req, res) => {
+app.get('/mercaderiaCliente/:idCliente', (req, res) => {
     const { idCliente } = req.params;
 
     const sql = `
@@ -263,7 +263,7 @@ app.get('/mercaderia/:idCliente', (req, res) => {
         res.json(rows);
     });
 });
-app.delete('/mercaderia/:id', (req, res) => {
+app.delete('/mercaderiaCliente/:id', (req, res) => {
     const { id } = req.params;
 
     const sql = `

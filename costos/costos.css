@@ -1,19 +1,19 @@
 /* Estilo Global */
 body {
-    background-color: #f0f8ff; /* Fondo claro */
-    font-family: 'Roboto', sans-serif;
+    background-color: #ffffff; /* Fondo blanco */
+    font-family: 'Inter', sans-serif;
 }
 
 /* Títulos */
 h1, h3 {
     font-weight: bold;
     text-transform: uppercase;
-    color: #155a9a; /* Color de los títulos */
+    color: #8a260c; /* Rojo secundario */
 }
 
 /* Tarjetas */
 .card {
-    background: white;
+    background: #f9f9f8; /* Fondo de tarjeta */
     border: none;
     border-radius: 12px;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
@@ -21,12 +21,11 @@ h1, h3 {
 }
 
 .card:hover {
-    background: white;
-    transform: scale(1.02); /* Efecto al pasar el cursor */
+    transform: scale(1.02);
 }
 
 .card-header {
-    background: #155a9a; /* Color de fondo de la cabecera de la tarjeta */
+    background: #8a260c; /* Fondo rojo */
     color: white;
     border-radius: 12px 12px 0 0;
     padding: 15px;
@@ -42,94 +41,58 @@ h1, h3 {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
+/* Botones */
 button {
-    font-size: 0.9rem; /* Tamaño más pequeño */
-    border-radius: 20px; /* Bordes redondeados */
+    font-size: 0.9rem;
+    border-radius: 20px;
     font-weight: bold;
     transition: background-color 0.3s ease, transform 0.3s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 6px 12px; /* Tamaño compacto */
-    display: inline-flex; /* Alinear contenido interno */
-    align-items: center; /* Centrar verticalmente */
-    gap: 5px; /* Separación entre ícono y texto */
+    padding: 6px 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
 }
 
+/* Botones secundarios */
 button.btn-secondary {
-    background: #009aff; /* Azul claro */
-    color: white; /* Texto blanco */
-    border: none; /* Sin borde adicional */
+    background: #ffda77; /* Amarillo */
+    color: #5b1f0a; /* Texto oscuro */
+    border: none;
 }
 
 button.btn-secondary:hover {
-    background: #154b8c; /* Azul oscuro */
+    background: #d8ad09; /* Amarillo oscuro */
     transform: scale(1.05);
 }
-.text-end {
-    text-align: end;
-}
-/* Botones Primarios */
+
+/* Botones primarios */
 button.btn-primary {
-    background: #009aff;
-    color: white;
-    border: 1px solid #155a9a;
+    background: #ffda77; /* Amarillo */
+    color: #5b1f0a; /* Texto oscuro */
+    border: 1px solid #8a260c;
 }
 
 button.btn-primary:hover {
-    background: #155a9a;
-    border: 1px solid #009aff;
-    transform: scale(1.05); /* Agrandar el botón al pasar el cursor */
+    background: #d8ad09;
+    border: 1px solid #8a260c;
+    transform: scale(1.05);
 }
 
-/* Botones de Éxito (Plásticos) */
-button.btn-success {
-    background: #009aff;
-    color: white;
-    border: 1px solid #155a9a;
-}
-
-button.btn-success:hover {
-    background: #155a9a;
-    border: 1px solid #009aff;
-    transform: scale(1.05); /* Agrandar el botón al pasar el cursor */
-}
-/* Botones de Edición */
-button.btn-warning.edit-btn {
-    background: #009aff; /* Color de fondo inicial */
-    color: white;        /* Texto en blanco */
-    border: 1px solid #155a9a; /* Borde azul oscuro */
-}
-
-button.btn-warning.edit-btn:hover {
-    background: #155a9a; /* Color de fondo en hover */
-    border: 1px solid #009aff; /* Borde azul claro */
-    transform: scale(1.05); /* Efecto de agrandar al pasar el cursor */
-}
-
-/* Botones de Eliminación */
-button.btn-danger.delete-btn {
-    margin-top: 5px;
-    background: #009aff; /* Color de fondo inicial */
-    color: white;        /* Texto en blanco */
-    border: 1px solid #155a9a; /* Borde azul oscuro */
-}
-
-button.btn-danger.delete-btn:hover {
-    background: #155a9a; /* Color de fondo en hover */
-    border: 1px solid #009aff; /* Borde azul claro */
-    transform: scale(1.05); /* Efecto de agrandar al pasar el cursor */
-}
-/* Botones de Actualización */
+/* Botones de acción */
+button.btn-warning.edit-btn,
+button.btn-danger.delete-btn,
 button.btn-warning.actualizar-btn {
-    margin-top: 5px;
-    background: #009aff; /* Color de fondo inicial */
-    color: white;        /* Texto en blanco */
-    border: 1px solid #155a9a; /* Borde azul oscuro */
+    background: #ffda77; /* Amarillo */
+    color: #5b1f0a; /* Texto oscuro */
+    border: 1px solid #8a260c;
 }
 
+button.btn-warning.edit-btn:hover,
+button.btn-danger.delete-btn:hover,
 button.btn-warning.actualizar-btn:hover {
-    background: #155a9a; /* Color de fondo en hover */
-    border: 1px solid #009aff; /* Borde azul claro */
-    transform: scale(1.05); /* Efecto de agrandar al pasar el cursor */
+    background: #d8ad09;
+    transform: scale(1.05);
 }
 
 /* Tablas */
@@ -137,11 +100,11 @@ button.btn-warning.actualizar-btn:hover {
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
-    background: white;
+    background: #faf3e0;
 }
 
 .table thead {
-    background: #155a9a; /* Color de fondo de los encabezados */
+    background: #8a260c; /* Fondo rojo */
     color: white;
     text-transform: uppercase;
 }
@@ -149,118 +112,49 @@ button.btn-warning.actualizar-btn:hover {
 /* Total por Paquete */
 #total-por-paquete {
     font-weight: bold;
-    color: #155a9a;
+    color: #8a260c; /* Rojo secundario */
     font-size: 1.5rem;
 }
 
 /* Fondo total paquete */
 .bg-gradient {
-    background: linear-gradient(45deg, #3f5b6d, #155a9a);
+    background: linear-gradient(45deg, #5b1f0a, #8a260c); /* Degradado rojo-marrón */
     color: white;
     display: inline-block;
     border-radius: 16px;
     padding: 15px;
     font-weight: bold;
 }
-/* Botón Inicio */
-a.btn-primary {
-    background: #009aff; /* Fondo azul claro */
-    color: white;        /* Texto en blanco */
-    border: 1px solid #155a9a; /* Borde azul oscuro */
-    font-weight: bold;   /* Texto en negrita */
-    text-decoration: none; /* Sin subrayado */
-}
 
-a.btn-primary:hover {
-    background: #155a9a; /* Fondo azul oscuro en hover */
-    border: 1px solid #009aff; /* Borde azul claro */
-    transform: scale(1.05); /* Efecto de agrandar al pasar el cursor */
-    color: white; /* Asegura que el texto permanezca blanco */
-}
-
-a.btn-primary:active {
-    transform: scale(1); /* Elimina el efecto de hover al hacer clic */
-    background: #0078d4; /* Color intermedio para el clic */
-}
 .modal {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1000;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-    width: 90%;
-    max-width: 500px;
-    padding: 20px;
-    display: none;
-}
-
-.modal.visible {
-    display: block;
-}
-
-/* Encabezado del Modal */
-.modal h3 {
-    font-weight: bold;
-    font-size: 1.5rem;
-    text-align: center;
-    margin-bottom: 20px;
-    color: #155a9a;
-    text-transform: uppercase;
-}
-
-/* Campos del formulario */
-.modal label {
-    font-size: 20px;
-    font-weight: bold;
-    color: #155a9a;
-    display: block;
-    margin-bottom: 5px;
-}
-
-.modal input[type="text"],
-.modal input[type="number"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 8px;
-    border: 1px solid #ced4da;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-.modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1000;
-    background: linear-gradient(135deg, #f0f8ff, #e6f2ff);
+    background: #faf3e0; /* Fondo claro uniforme */
     border-radius: 16px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     width: 90%;
-    height: 40%;
     max-width: 500px;
     padding: 25px;
     display: none;
-    overflow: hidden;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Alinea contenido al centro horizontalmente */
+    justify-content: center; /* Centra contenido verticalmente */
 }
 
 .modal.visible {
-    display: block;
-    overflow: hidden;
+    display: flex;
 }
 
-body.modal-open {
-    overflow: hidden;
-}
-
-/* Cabecera del Modal */
-.modal h2 {
+.modal h2, .modal h3 {
     font-size: 25px;
     font-weight: bold;
     text-align: center;
-    color: #155a9a;
+    color: #8a260c; /* Rojo */
     text-transform: uppercase;
     margin-bottom: 20px;
 }
@@ -271,37 +165,31 @@ body.modal-open {
     top: 10px;
     right: 15px;
     font-size: 1.5rem;
-    color: #155a9a;
+    color: #8a260c; /* Rojo */
     cursor: pointer;
-    transition: color 0.3s ease;
 }
 
 .modal .close:hover {
-    color: #009aff;
+    color: #d8ad09; /* Amarillo oscuro */
 }
 
-/* Formularios */
-.modal label {
-    font-size: 20px;
-    font-weight: bold;
-    color: #155a9a;
-    display: block;
-    margin-bottom: 10px;
-}
-
+/* Formulario del Modal */
+.modal input[type="text"], 
 .modal input[type="number"] {
-    width: 100%;
+    width: 70%;
     padding: 12px;
     font-size: 1rem;
     margin-bottom: 20px;
     border-radius: 8px;
     border: 1px solid #ced4da;
+    background: #faf3e0; /* Fondo uniforme */
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    margin-left: 70px;
 }
 
 /* Botón de actualizar */
 .modal button[type="submit"] {
-    background: #009aff;
+    background: #8a260c; /* Rojo */
     color: white;
     border: none;
     border-radius: 8px;
@@ -310,14 +198,17 @@ body.modal-open {
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
-    width: 90%;
-    margin-left: 20px;
+    width: 30%;
+    margin-top: 8px;
+    margin-left: 150px;
+    text-align: center; /* Centrado de texto */
 }
 
 .modal button[type="submit"]:hover {
-    background: #155a9a;
+    background: #d8ad09; /* Amarillo oscuro */
     transform: scale(1.05);
 }
+
 /* Fondo oscuro */
 #fondo-oscuro {
     display: none;
@@ -327,19 +218,14 @@ body.modal-open {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5); /* Oscurecimiento */
-    z-index: 998; /* Debajo del modal pero encima del contenido */
+    z-index: 998;
 }
-
-/* Modal */
-#modal-actualizar-precio {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 20px;
-    z-index: 999; /* Encima del fondo oscuro */
-    display: none; /* Oculto por defecto */
-    border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+.btn-success {
+background-color: #ffda77;
+color: #5b1f0a;
+}
+.btn-success:hover {
+    background: #d8ad09;
+    border: 1px solid #8a260c;
+    transform: scale(1.05);
 }

@@ -12,71 +12,107 @@
     <style>
         /* Fondo general */
         body {
-            background-color: #f0f8ff;
-            font-family: Arial, sans-serif;
+            background-color: #ffffff; /* Fondo blanco */
+            font-family: 'Inter', sans-serif; /* Fuente de inicio.css */
+            color: #5b1f0a; /* Color de texto principal */
         }
 
         .login-card {
-            background: #ffffff;
+            background: #faf3e0; /* Fondo claro */
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
             padding: 40px;
-            border-radius: 10px;
+            border-radius: 12px; /* Consistencia con inicio.css */
             max-width: 400px;
             width: 100%;
             margin: auto;
+            color: #5b1f0a; /* Texto marrón */
         }
 
         .login-card h1 {
             font-size: 1.8rem;
             font-weight: bold;
-            color: #155a9a;
+            color: #8a260c; /* Título marrón oscuro */
             text-align: center;
             margin-bottom: 20px;
         }
 
+        .logo-container {
+            width: 120px;
+            height: 110px;
+            margin: 0 auto 20px auto;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: auto;
+        }
+
         .login-card .form-label {
             font-weight: bold;
-            color: #155a9a;
+            color: #5b1f0a; /* Texto marrón */
         }
 
         .login-card .btn-primary {
-            background-color: #009aff;
-            border: 1px solid #155a9a;
-            color: white;
+            background-color: #ffda77; /* Amarillo claro */
+            border: 1px solid #d8ad09; /* Amarillo oscuro */
+            color: #5b1f0a; /* Texto marrón */
             font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 8px; /* Consistencia con botones en inicio.css */
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
         .login-card .btn-primary:hover {
-            background-color: #155a9a;
+            background-color: #d8ad09; /* Amarillo oscuro */
             transform: scale(1.05);
+            color: #ffffff; /* Texto blanco al pasar el mouse */
         }
 
         .login-card .btn-outline-secondary,
         .login-card .btn-outline-info {
             font-weight: bold;
-            transition: transform 0.2s ease-in-out;
+            color: #5b1f0a; /* Texto marrón */
+            background-color: transparent;
+            border: 1px solid #5b1f0a; /* Borde marrón */
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
         .login-card .btn-outline-secondary:hover,
         .login-card .btn-outline-info:hover {
             transform: scale(1.05);
+            background-color: #faf3e0; /* Fondo claro */
+            color: #8a260c; /* Marrón oscuro */
         }
 
         /* Mensajes */
         #message {
             margin-top: 15px;
+            color: #5b1f0a; /* Texto marrón */
         }
 
         #welcomeMessage {
             margin-top: 15px;
+            color: #5b1f0a; /* Texto marrón */
         }
     </style>
+    
 </head>
 
 <body>
     <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
         <div class="login-card">
             <h1><i class="fas fa-sign-in-alt me-2"></i>Iniciar Sesión</h1>
+            <div class="logo-container">
+                <img src="aranda.jpg" alt="Logo Aranda">
+            </div>
             <form id="loginForm">
                 <div class="mb-3">
                     <label for="username" class="form-label"><i class="fas fa-user me-2"></i>Usuario</label>

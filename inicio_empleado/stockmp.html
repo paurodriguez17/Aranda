@@ -9,95 +9,123 @@
     <style>
         /* Fondo general */
         body {
-            background-color: #f0f8ff;
-            font-family: Arial, sans-serif;
+            background-color: #ffffff; /* Fondo blanco */
+            font-family: 'Inter', sans-serif; /* Fuente de inicio.css */
+            color: #5b1f0a; /* Color de texto principal */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
-
+    
         /* Header */
         .header {
-            background-color: #155a9a;
-            color: #ecf0f1;
+            background-color: #faf3e0; /* Fondo claro */
+            color: #5b1f0a; /* Color de texto */
             padding: 50px 20px;
             text-align: center;
-            border-bottom: 3px solid #009aff;
+            border-bottom: 3px solid #d8ad09; /* Línea amarilla */
         }
-
+    
         .header h1 {
             font-size: 2.8rem;
             font-weight: bold;
         }
-
+    
         .header p {
             font-size: 1.1rem;
         }
-
+    
         /* Botón Volver a Inicio */
         .header .btn-secondary {
             position: absolute;
             top: 20px;
             right: 20px;
-            background-color: #009aff; /* Azul claro */
-            border: 1px solid #155a9a; /* Azul oscuro */
+            background-color: #a61b1b; /* Rojo */
+            border: 1px solid #8d1212; /* Rojo oscuro */
             color: white;
             font-weight: bold;
             text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
-
+    
         .header .btn-secondary:hover {
-            background-color: #155a9a; /* Azul oscuro */
-            color: white;
-            transform: scale(1.05); /* Efecto de hover */
+            background-color: #8d1212; /* Rojo oscuro al pasar el mouse */
+            transform: scale(1.05);
         }
-
+    
         .header .btn-secondary:active {
-            background-color: #0078d4; /* Azul intermedio al presionar */
+            background-color: #5b1f0a; /* Marrón oscuro al presionar */
             transform: scale(1);
         }
-
+    
         /* Tarjetas */
         .form-card {
-            background: #ffffff;
+            background: #faf3e0; /* Fondo claro */
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
             padding: 40px;
-            border-radius: 10px;
+            border-radius: 12px;
             transition: transform 0.2s ease-in-out;
+            color: #5b1f0a; /* Texto marrón */
         }
-
+    
         .form-card:hover {
             transform: scale(1.02);
         }
-
+    
         /* Botón Registrar Movimiento */
         .btn-primary {
-            background-color: #009aff; /* Azul claro */
-            border: 1px solid #155a9a; /* Azul oscuro */
-            color: white;
+            background-color: #ffda77; /* Amarillo claro */
+            border: 1px solid #d8ad09; /* Amarillo oscuro */
+            color: #5b1f0a; /* Marrón */
             font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 8px;
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
-
+    
         .btn-primary:hover {
-            background-color: #155a9a; /* Azul oscuro */
-            transform: scale(1.05); /* Efecto de hover */
-            color: white;
+            background-color: #d8ad09; /* Amarillo oscuro */
+            transform: scale(1.05);
+            color: #ffffff; /* Texto blanco */
         }
-
+    
         .btn-primary:active {
-            background-color: #0078d4; /* Azul intermedio al presionar */
+            background-color: #8a260c; /* Marrón oscuro al presionar */
             transform: scale(1);
         }
-
+        .btn-secondary {
+            background-color: #ffda77; /* Amarillo claro */
+            border: 1px solid #d8ad09; /* Amarillo oscuro */
+            color: #5b1f0a; /* Marrón */
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .btn-secondary:hover{
+            background-color: #d8ad09; /* Amarillo oscuro */
+            transform: scale(1.05);
+            color: #ffffff; /* Texto blanco */
+        }
         /* Tablas */
         .table-container {
             margin-top: 40px;
         }
-
+    
         .table-bordered {
-            border: 1px solid #dcdcdc;
+            border: 1px solid #dcdcdc; /* Borde gris claro */
             border-radius: 8px;
             overflow: hidden;
         }
+    
+        .table-bordered th, .table-bordered td {
+            color: #5b1f0a; /* Texto marrón */
+            padding: 10px;
+        }
     </style>
+    
 </head>
 <body>
     <header class="header">

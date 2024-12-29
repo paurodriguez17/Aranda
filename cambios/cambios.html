@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,15 +9,21 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f0f8ff;
-            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            /* Fondo blanco */
+            font-family: 'Inter', sans-serif;
+            color: #5b1f0a;
+            /* Color principal del texto */
         }
+
         .header {
-            background-color: #155a9a;
-            color: #ecf0f1;
+            background-color: #ffda77;
+            /* Fondo rojo principal */
+            color: #5b1f0a;
+            /* Texto blanco */
             padding: 50px 20px;
             text-align: center;
-            border-bottom: 3px solid #009aff;
+            /* Rojo oscuro */
             position: relative;
         }
 
@@ -29,14 +36,17 @@
             position: absolute;
             top: 20px;
             right: 20px;
-            background-color: #009aff;
-            border: 1px solid #155a9a;
+            background-color: #a61b1b;
+            /* Fondo rojo principal */
+            border: 1px solid #8d1212;
+            /* Rojo oscuro */
             color: white;
             font-weight: bold;
         }
 
         .header .btn-secondary:hover {
-            background-color: #155a9a;
+            background-color: #8d1212;
+            /* Rojo oscuro */
             color: white;
             transform: scale(1.05);
         }
@@ -49,7 +59,8 @@
         }
 
         .form-card {
-            background: #ffffff;
+            background: #faf3e0;
+            /* Fondo similar a las tarjetas */
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
             padding: 30px;
             border-radius: 10px;
@@ -63,15 +74,19 @@
         }
 
         .btn-primary {
-            background-color: #009aff;
+            background-color: #ffda77;
+            /* Fondo amarillo */
             border: none;
             font-weight: bold;
             font-size: 1rem;
             transition: transform 0.3s ease, background-color 0.3s ease;
+            color: #5b1f0a;
+            /* Color principal del texto */
         }
 
         .btn-primary:hover {
-            background-color: #006bb3;
+            background-color: #d8ad09;
+            /* Amarillo más oscuro */
             transform: scale(1.05);
         }
 
@@ -84,30 +99,37 @@
             border-radius: 8px;
             overflow: hidden;
         }
+
         .btn-edit {
-            background-color: #009aff;
-            border: 1px solid #155a9a;
+            background-color: #a61b1b;
+            /* Fondo rojo principal */
+            border: 1px solid #8d1212;
+            /* Rojo oscuro */
             color: white;
             font-weight: bold;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .btn-edit:hover {
-            background-color: #155a9a;
+            background-color: #8d1212;
+            /* Rojo oscuro */
             transform: scale(1.05);
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .btn-danger {
-            background-color: #009aff;
-            border: 1px solid #155a9a;
+            background-color: #a61b1b;
+            /* Fondo rojo principal */
+            border: 1px solid #8d1212;
+            /* Rojo oscuro */
             color: white;
             font-weight: bold;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .btn-danger:hover {
-            background-color: #155a9a;
+            background-color: #8d1212;
+            /* Rojo oscuro */
             transform: scale(1.05);
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
         }
@@ -154,7 +176,8 @@
                     <input type="date" id="fecha" class="form-control" required>
                 </div>
                 <div class="col-md-6">
-                    <label for="cantidad" class="form-label"><i class="fas fa-sort-numeric-up-alt me-2"></i>Cantidad</label>
+                    <label for="cantidad" class="form-label"><i
+                            class="fas fa-sort-numeric-up-alt me-2"></i>Cantidad</label>
                     <input type="number" id="cantidad" class="form-control" placeholder="Ejemplo: 10" required>
                 </div>
                 <div class="col-md-6">
@@ -162,12 +185,14 @@
                     <input type="text" id="lote" class="form-control" placeholder="Ejemplo: 001" required>
                 </div>
                 <div class="col-md-6">
-                    <label for="fechaVencimiento" class="form-label"><i class="fas fa-calendar-check me-2"></i>Fecha de Vencimiento</label>
+                    <label for="fechaVencimiento" class="form-label"><i class="fas fa-calendar-check me-2"></i>Fecha de
+                        Vencimiento</label>
                     <input type="date" id="fechaVencimiento" class="form-control" required>
                 </div>
                 <div class="col-12">
                     <label for="descripcion" class="form-label"><i class="fas fa-file-alt me-2"></i>Descripción</label>
-                    <textarea id="descripcion" class="form-control" rows="3" placeholder="Ingrese detalles adicionales..." required></textarea>
+                    <textarea id="descripcion" class="form-control" rows="3"
+                        placeholder="Ingrese detalles adicionales..." required></textarea>
                 </div>
                 <div class="col-md-6">
                     <label for="cliente" class="form-label"><i class="fas fa-user me-2"></i>Cliente</label>
@@ -189,7 +214,7 @@
                 <thead>
                     <tr>
                         <th>Producto</th>
-                        <th>Cantidad</th> 
+                        <th>Cantidad</th>
                         <th>Fecha</th>
                         <th>Lote</th>
                         <th>Fecha de Vencimiento</th>
@@ -206,4 +231,5 @@
 
     <script src="cambios.js"></script>
 </body>
+
 </html>

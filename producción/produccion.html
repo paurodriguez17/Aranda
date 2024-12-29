@@ -8,17 +8,19 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
-               body {
-            background-color: #f0f8ff;
-            font-family: Arial, sans-serif;
+        body {
+            background-color: #faf3e0;
+            font-family: 'Inter', sans-serif;
+            color: #5b1f0a;
         }
 
+        /* Header */
         .header {
-            background-color: #155a9a;
-            color: #ecf0f1;
+            background-color: #ffda77;
+            color: #5b1f0a;
             padding: 50px 20px;
             text-align: center;
-            border-bottom: 3px solid #009aff;
+            border-bottom: 3px solid #a61b1b;
             position: relative;
         }
 
@@ -31,51 +33,51 @@
             position: absolute;
             top: 20px;
             right: 20px;
-            background-color: #009aff;
-            border: 1px solid #155a9a;
-            color: white;
+            background-color: #5b1f0a;
+            border: 1px solid #8a260c;
+            color: #ffffff;
             font-weight: bold;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
         .header .btn-secondary:hover {
-            background-color: #155a9a;
-            color: white;
+            background-color: #8a260c;
+            color: #ffffff;
             transform: scale(1.05);
         }
 
-        .main-container {
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            align-items: center;
-        }
+        /* Tarjetas */
         .form-card {
             background: #ffffff;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
             padding: 30px;
             border-radius: 10px;
             transition: transform 0.2s ease-in-out;
-            width: 100%;
-            margin-bottom: 20px;
         }
 
         .form-card:hover {
             transform: scale(1.02);
         }
 
+        /* Botón Registrar */
         .btn-primary {
-            background-color: #009aff;
-            border: none;
+            background-color: #ffda77;
+            border: 1px solid #8a260c;
+            color: #5b1f0a;
             font-weight: bold;
-            font-size: 1rem;
-            transition: transform 0.3s ease, background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            border-radius: 8px;
+            padding: 10px 20px;
         }
 
         .btn-primary:hover {
-            background-color: #006bb3;
+            background-color: #d8ad09;
             transform: scale(1.05);
+            color: #ffffff;
         }
 
+        /* Tabla */
         .table-container {
             margin-top: 40px;
         }
@@ -85,38 +87,9 @@
             border-radius: 8px;
             overflow: hidden;
         }
-        .btn-warning {
-            background-color: #009aff;
-            border: 1px solid #155a9a;
-            color: white;
-            font-weight: bold;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
 
-        .btn-warning:hover {
-            background-color: #155a9a;
-            transform: scale(1.05);
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn-danger {
-            background-color: #009aff;
-            border: 1px solid #155a9a;
-            color: white;
-            font-weight: bold;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .btn-danger:hover {
-            background-color: #155a9a;
-            transform: scale(1.05);
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn-sm {
-            padding: 5px 10px;
-            font-size: 0.875rem;
-            border-radius: 4px;
+        .bg-primary {
+            background-color: #ffda77 !important;
         }
     </style>
 </head>
