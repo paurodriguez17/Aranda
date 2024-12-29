@@ -2,7 +2,7 @@
     "version"; 2,
     "builds";[
       {
-        "src": "puyblic/inicio/inicio.js", // Cambia "index.js" al nombre de tu archivo principal de servidor
+        "src": "public/inicio/inicio.js", // Cambia "index.js" al nombre de tu archivo principal de servidor
         "use": "@vercel/node"
       }
     ],
