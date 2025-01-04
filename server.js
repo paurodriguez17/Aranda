@@ -37,7 +37,7 @@ const transporter = nodemailer.createTransport({
         pass: 'tfww odff zsxy zyzp',      
     },
 });
-const mysql = require('mysql');
+
 const dbModulos = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
