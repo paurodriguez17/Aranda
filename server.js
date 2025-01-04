@@ -30,19 +30,24 @@ const transporter = nodemailer.createTransport({
         pass: 'tfww odff zsxy zyzp',      
     },
 });
+// Obtén las variables de entorno
 const dbModulos = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'Coco1406.',
-    database: 'aranda_db'
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
 });
-dbModulos.connect(err => {
+
+// Conéctate a la base de datos
+dbModulos.connect((err) => {
     if (err) {
-        console.error('Error connecting to MySQL:', err);
-        process.exit(1);
+        console.error('Error conectando a la base de datos:', err);
+        return;
     }
-    console.log('Conectado a la base de datos MySQL (aranda_db)');
+    console.log('Conexión exitosa a la base de datos');
 });
+
+module.exports = dbModulos;
 dbModulos.query(`
     CREATE TABLE IF NOT EXISTS usuarios (
         id INT AUTO_INCREMENT PRIMARY KEY,
