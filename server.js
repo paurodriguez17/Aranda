@@ -6,6 +6,7 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 const port = 3000;
 const path = require('path');
+require('dotenv').config();
 
 
 app.use(express.urlencoded({ extended: true }));
@@ -15,9 +16,9 @@ app.use(cors());
 app.use(express.json());
 const nodemailer = require('nodemailer');
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'PUBLIC')));
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'login', 'login.html'));
+    res.sendFile(path.join(__dirname, 'PUBLIC', 'login', 'login.html'));
 });
 app.use((err, req, res, next) => {
     console.error(err.stack);
@@ -26,8 +27,8 @@ app.use((err, req, res, next) => {
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'fabricaaranda@gmail.com',
-        pass: 'tfww odff zsxy zyzp',      
+        user: process.env.EMAIL_USER, // ✅ Cambia las credenciales a variables de entorno
+        pass: process.env.EMAIL_PASS
     },
 });
 // Obtén las variables de entorno
