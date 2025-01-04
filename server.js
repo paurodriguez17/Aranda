@@ -6,7 +6,6 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 const port = 3000;
 const path = require('path');
-require('dotenv').config();
 
 
 app.use(express.urlencoded({ extended: true }));
@@ -16,9 +15,9 @@ app.use(cors());
 app.use(express.json());
 const nodemailer = require('nodemailer');
 
-app.use(express.static(path.join(__dirname, 'PUBLIC')));
+app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'PUBLIC', 'login', 'login.html'));
+    res.sendFile(path.join(__dirname, 'public', 'login', 'login.html'));
 });
 app.use((err, req, res, next) => {
     console.error(err.stack);
@@ -27,28 +26,23 @@ app.use((err, req, res, next) => {
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: process.env.EMAIL_USER, // ✅ Cambia las credenciales a variables de entorno
-        pass: process.env.EMAIL_PASS
+        user: 'fabricaaranda@gmail.com',
+        pass: 'tfww odff zsxy zyzp',      
     },
 });
-// Obtén las variables de entorno
 const dbModulos = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
+    host: 'localhost',
+    user: 'root',
+    password: 'Coco1406.',
+    database: 'aranda_db'
 });
-
-// Conéctate a la base de datos
-dbModulos.connect((err) => {
+dbModulos.connect(err => {
     if (err) {
-        console.error('Error conectando a la base de datos:', err);
-        return;
+        console.error('Error connecting to MySQL:', err);
+        process.exit(1);
     }
-    console.log('Conexión exitosa a la base de datos');
+    console.log('Conectado a la base de datos MySQL (aranda_db)');
 });
-
-module.exports = dbModulos;
 dbModulos.query(`
     CREATE TABLE IF NOT EXISTS usuarios (
         id INT AUTO_INCREMENT PRIMARY KEY,
