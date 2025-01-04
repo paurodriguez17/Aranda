@@ -159,3 +159,32 @@ button.btn-secondary:hover {
     font-size: 1.2rem;
     text-transform: uppercase;
 }
+#totales .card {
+    background-color: #fbf5e8; /* Fondo neutro */
+    border: 1px solid #8d1212;
+    border-radius: 10px; /* Bordes un poco menos redondeados */
+    height: auto; /* Mantenerlo más compacto */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#totales .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#totales h6 {
+    font-size: 0.95rem; /* Tamaño de texto un poco más compacto */
+    color: #8d1212; /* Marrón para el título */
+}
+
+#totales p {
+    font-size: 1.5rem; /* Reducido pero aún destacado */
+    margin: 0;
+    color: #a61b1b; 
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+#totales .card:hover p {
+    transform: scale(1.05);
+    color: #d18f06; /* Ligeramente más vibrante al pasar el mouse */
+}

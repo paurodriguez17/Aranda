@@ -3,9 +3,16 @@ const app = express();
 const bodyParser = require('body-parser');
 const mysql = require('mysql2');
 const cors = require('cors');
-const bcrypt = require('bcrypt');
 const port = 3000;
 const path = require('path');
+const bcrypt = require('bcryptjs');
+
+
+require('dotenv').config(); 
+
+// Middleware para servir archivos estáticos
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 
 app.use(express.urlencoded({ extended: true }));
@@ -26,16 +33,19 @@ app.use((err, req, res, next) => {
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'paurodriguez170@gmail.com', // Cambia esto a tu correo de Gmail
-        pass: 'xcof ivfe gvdr vphj',      // Usa una contraseña de aplicación generada en tu cuenta de Gmail
+        user: 'fabricaaranda@gmail.com',
+        pass: 'tfww odff zsxy zyzp',      
     },
 });
+const mysql = require('mysql');
 const dbModulos = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'Coco1406.',
-    database: 'aranda_db'
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
 });
+
+module.exports = dbModulos;
 dbModulos.connect(err => {
     if (err) {
         console.error('Error connecting to MySQL:', err);
@@ -203,7 +213,8 @@ dbModulos.query(`
         lote VARCHAR(255) NOT NULL,
         fecha_vencimiento DATE,
         descripcion TEXT,
-        cantidad INT NOT NULL
+        cantidad INT NOT NULL,
+        precio DECIMAL(10, 2) NOT NULL DEFAULT 0.0
     );
 `, (err) => {
     if (err) throw err;
@@ -217,6 +228,7 @@ dbModulos.query(`
         totalPagar DECIMAL(10, 2) NOT NULL,
         fecha DATE NOT NULL,
         pago DECIMAL(10, 2),
+        numeroComprobante VARCHAR(50),
         FOREIGN KEY (idCliente) REFERENCES clientes(id) ON DELETE CASCADE
     )
 `, (err) => {
@@ -292,17 +304,17 @@ app.delete('/mercaderiaCliente/:id', (req, res) => {
     });
 });
 app.post('/plazos-pago', (req, res) => {
-    const { idCliente, formaPago, totalPagar, fecha, pago } = req.body;
+    const { idCliente, formaPago, totalPagar, fecha, pago, numeroComprobante } = req.body;
 
     if (!idCliente || !formaPago || !totalPagar || !fecha) {
-        return res.status(400).json({ message: 'Todos los campos son obligatorios excepto "pago".' });
+        return res.status(400).json({ message: 'Los campos idCliente, formaPago, totalPagar, fecha son obligatorios.' });
     }
 
     const sql = `
-        INSERT INTO plazos_pago (idCliente, formaPago, totalPagar, fecha, pago)
-        VALUES (?, ?, ?, ?, ?)
+        INSERT INTO plazos_pago (idCliente, formaPago, totalPagar, fecha, pago, numeroComprobante)
+        VALUES (?, ?, ?, ?, ?, ?)
     `;
-    dbModulos.query(sql, [idCliente, formaPago, totalPagar, fecha, pago], (err, result) => {
+    dbModulos.query(sql, [idCliente, formaPago, totalPagar, fecha, pago, numeroComprobante], (err, result) => {
         if (err) {
             console.error('Error al guardar plazo de pago:', err);
             return res.status(500).json({ message: 'Error al guardar plazo de pago.' });
@@ -314,7 +326,7 @@ app.get('/plazos-pago/:idCliente', (req, res) => {
     const { idCliente } = req.params;
 
     const sql = `
-        SELECT idPlazo, formaPago, totalPagar, fecha, pago
+        SELECT idPlazo, formaPago, totalPagar, fecha, pago, numeroComprobante
         FROM plazos_pago
         WHERE idCliente = ?
     `;
@@ -356,7 +368,15 @@ app.get('/cambios/cliente/:idCliente', (req, res) => {
     const idCliente = req.params.idCliente;
 
     const query = `
-        SELECT producto, fecha, lote, fecha_vencimiento, descripcion, cantidad 
+        SELECT 
+            producto, 
+            fecha, 
+            lote, 
+            fecha_vencimiento, 
+            descripcion, 
+            cantidad, 
+            precio, 
+            (cantidad * precio) AS total 
         FROM cambios 
         WHERE cliente = (SELECT nombre FROM clientes WHERE id = ?)
     `;
@@ -370,17 +390,17 @@ app.get('/cambios/cliente/:idCliente', (req, res) => {
     });
 });
 app.post('/cambios', (req, res) => {
-    const { producto, cliente, fecha, lote, fecha_vencimiento, descripcion, cantidad } = req.body;
+    const { producto, cliente, fecha, lote, fecha_vencimiento, descripcion, cantidad, precio } = req.body;
 
-    if (!producto || !cliente || !fecha || !lote || cantidad == null) {
-        return res.status(400).json({ message: 'Los campos producto, cliente, fecha, lote y cantidad son obligatorios.' });
+    if (!producto || !cliente || !fecha || !lote || cantidad == null || precio == null) {
+        return res.status(400).json({ message: 'Los campos producto, cliente, fecha, lote, cantidad y precio son obligatorios.' });
     }
 
     const query = `
-        INSERT INTO cambios (producto, cliente, fecha, lote, fecha_vencimiento, descripcion, cantidad)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO cambios (producto, cliente, fecha, lote, fecha_vencimiento, descripcion, cantidad, precio)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     `;
-    dbModulos.query(query, [producto, cliente, fecha, lote, fecha_vencimiento || null, descripcion || null, cantidad], (err) => {
+    dbModulos.query(query, [producto, cliente, fecha, lote, fecha_vencimiento || null, descripcion || null, cantidad, precio], (err) => {
         if (err) {
             console.error('Error al registrar el cambio:', err.message);
             return res.status(500).json({ error: 'Error al registrar el cambio.' });
@@ -390,7 +410,10 @@ app.post('/cambios', (req, res) => {
 });
 app.get('/traer_cambios', (req, res) => {
     const { fecha } = req.query;
-    let query = `SELECT * FROM cambios`;
+    let query = `
+        SELECT id, producto, cliente, fecha, lote, fecha_vencimiento, descripcion, cantidad, precio, (cantidad * precio) AS total
+        FROM cambios
+    `;
     const params = [];
 
     if (fecha) {
@@ -670,7 +693,7 @@ app.post('/send-authorization-email', (req, res) => {
     }
 
     const mailOptions = {
-        from: 'paurodriguez170@gmail.com',
+        from: 'fabricaaranda@gmail.com',
         to: email,
         subject: 'Autorización de registro en el sistema',
         html: `
@@ -1368,5 +1391,3 @@ app.use((req, res) => {
 app.listen(port, () => {
     console.log(`Servidor corriendo en http://localhost:${port}`);
 });
-// Exporta la app para que funcione con Vercel
-module.exports = app;

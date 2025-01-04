@@ -111,6 +111,8 @@ function verCambios(idCliente, nombreCliente) {
                         <tr>
                             <th>Producto</th>
                             <th>Cantidad</th>
+                            <th>Precio</th>
+                            <th>Total</th>
                             <th>Fecha</th>
                             <th>Lote</th>
                             <th>Fecha Vencimiento</th>
@@ -121,7 +123,9 @@ function verCambios(idCliente, nombreCliente) {
                         ${data.map(cambio => `
                             <tr>
                                 <td>${cambio.producto}</td>
-                                 <td>${cambio.cantidad}</td>
+                                <td>${cambio.cantidad}</td>
+                                <td>${parseFloat(cambio.precio).toFixed(2)}</td>
+                                <td>${(cambio.cantidad * parseFloat(cambio.precio)).toFixed(2)}</td>
                                 <td>${new Date(cambio.fecha).toLocaleDateString('es-ES')}</td>
                                 <td>${cambio.lote}</td>
                                 <td>${cambio.fecha_vencimiento ? new Date(cambio.fecha_vencimiento).toLocaleDateString('es-ES') : ''}</td>
@@ -138,6 +142,7 @@ function verCambios(idCliente, nombreCliente) {
             console.error('Error al cargar los cambios del cliente:', error);
             cuerpo.innerHTML = `<p>Error al cargar los cambios.</p>`;
         });
+
     modal.show();
 }
 function editarCliente(id, nombre, cuit, legajo_impositivo) {
@@ -168,12 +173,13 @@ document.getElementById('nombreCliente').addEventListener('input', function (eve
     cargarClientes(filtroNombre);
 });
 cargarClientes();
+
 function abrirPlazosPago(idCliente) {
-    clienteActivoId = idCliente; // Guarda el ID del cliente activo
+    clienteActivoId = idCliente; 
     const modal = new bootstrap.Modal(document.getElementById('plazosPagoModal'));
-    document.getElementById('plazosPagoForm').reset(); // Limpia el formulario
-    document.getElementById('plazosPagoTabla').innerHTML = ''; // Limpia la tabla
-    cargarPlazosPago(idCliente); // Carga los plazos de pago existentes
+    document.getElementById('plazosPagoForm').reset(); 
+    document.getElementById('plazosPagoTabla').innerHTML = ''; 
+    cargarPlazosPago(idCliente); 
     modal.show();
     document.getElementById('plazosPagoForm').onsubmit = function (e) {
         e.preventDefault();
@@ -181,31 +187,28 @@ function abrirPlazosPago(idCliente) {
     };
 }
 function cargarPlazosPago(idCliente) {
-    console.log('Cargando plazos de pago para el cliente:', idCliente);
-
     fetch(`http://localhost:3000/plazos-pago/${idCliente}`)
-        .then((response) => {
+        .then(response => {
             if (!response.ok) throw new Error('Error al cargar plazos de pago');
             return response.json();
         })
-        .then((data) => {
-            console.log('Datos recibidos:', data);
-
+        .then(data => {
             const tabla = document.getElementById('plazosPagoTabla');
-
-            // Limpiar la tabla antes de agregar nuevas filas
             tabla.innerHTML = '';
+            let totalDeuda = 0;
 
             if (data.length === 0) {
-                tabla.innerHTML = '<tr><td colspan="6">No se encontraron registros</td></tr>';
+                tabla.innerHTML = '<tr><td colspan="8">No se encontraron registros</td></tr>';
+                document.getElementById('totalDeuda').textContent = '0.00';
                 return;
             }
 
-            // Redibujar la tabla con los nuevos datos
-            data.forEach((plazo) => {
+            data.forEach(plazo => {
                 const total = parseFloat(plazo.totalPagar) || 0;
                 const pago = parseFloat(plazo.pago) || 0;
                 const debe = total - pago;
+
+                if (debe > 0) totalDeuda += debe;
 
                 const fila = `
                     <tr>
@@ -213,39 +216,40 @@ function cargarPlazosPago(idCliente) {
                         <td>${total.toFixed(2)}</td>
                         <td>${new Date(plazo.fecha).toLocaleDateString('es-ES')}</td>
                         <td>${pago.toFixed(2)}</td>
+                        <td>${plazo.numeroComprobante || '-'}</td>
                         <td>${debe === 0 ? '<span class="text-success">Saldada</span>' : debe.toFixed(2)}</td>
                         <td>
-                            ${
-                                debe > 0
-                                    ? `<button class="btn btn-success btn-sm" onclick="abrirRegistrarPago(${plazo.idPlazo}, ${debe})">Registrar Pago</button>`
-                                    : '<span class="text-muted">Pago completo</span>'
-                            }
+                            ${debe > 0
+                                ? `<button class="btn btn-success btn-sm" onclick="abrirRegistrarPago(${plazo.idPlazo}, ${debe})">Registrar Pago</button>`
+                                : '<span class="text-muted">Pago completo</span>'}
                         </td>
                     </tr>
                 `;
 
                 tabla.insertAdjacentHTML('beforeend', fila);
             });
+
+            document.getElementById('totalDeuda').textContent = totalDeuda.toFixed(2);
         })
-        .catch((error) => console.error('Error al cargar plazos de pago:', error));
+        .catch(error => console.error('Error al cargar plazos de pago:', error));
 }
 function guardarPlazosPago(idCliente) {
     const formaPago = document.getElementById('formaPago').value;
     const totalPagar = document.getElementById('totalPagar').value;
     const fechaPago = document.getElementById('fechaPago').value;
     const pago = document.getElementById('pago').value || null;
+    const numeroComprobante = document.getElementById('numeroComprobante').value || null;
 
     fetch(`http://localhost:3000/plazos-pago`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ idCliente, formaPago, totalPagar, fecha: fechaPago, pago })
+        body: JSON.stringify({ idCliente, formaPago, totalPagar, fecha: fechaPago, pago, numeroComprobante })
     })
         .then(response => {
             if (!response.ok) throw new Error('Error al guardar plazo de pago');
             return response.json();
         })
         .then(() => {
-            // Limpia el formulario y recarga la tabla
             document.getElementById('plazosPagoForm').reset();
             cargarPlazosPago(idCliente);
         })
@@ -272,8 +276,6 @@ function registrarPago(idPlazo, montoPago) {
         .then((data) => {
             alert('Pago registrado con éxito.');
             console.log('Respuesta del servidor:', data);
-
-            // Actualiza la tabla del historial de pagos en tiempo real
             if (clienteActivoId) cargarPlazosPago(clienteActivoId);
         })
         .catch((error) => console.error('Error al registrar el pago:', error));
@@ -286,8 +288,6 @@ function abrirRegistrarPago(idPlazo, saldoPendiente) {
     }
 
     const nuevoPago = prompt(`Registrar pago. Saldo pendiente: ${saldoPendiente.toFixed(2)}\nIngrese el monto a pagar:`);
-
-    // Validar el monto ingresado
     const montoPago = parseFloat(nuevoPago);
 
     if (isNaN(montoPago) || montoPago <= 0) {
@@ -299,14 +299,11 @@ function abrirRegistrarPago(idPlazo, saldoPendiente) {
         alert('El monto ingresado supera el saldo pendiente.');
         return;
     }
-
-    // Llamar a la función para registrar el pago
     registrarPago(idPlazo, montoPago);
 }
-// Actualización de datos después de guardar o eliminar
 function cargarMercaderia(idCliente) {
     const tabla = document.getElementById('mercaderiaTabla');
-    tabla.innerHTML = '<tr><td colspan="5" class="text-center">Cargando...</td></tr>'; // Indicador de carga
+    tabla.innerHTML = '<tr><td colspan="5" class="text-center">Cargando...</td></tr>';
 
     fetch(`http://localhost:3000/mercaderiaCliente/${idCliente}`)
         .then(response => {
@@ -321,9 +318,9 @@ function cargarMercaderia(idCliente) {
                 tabla.innerHTML = '<tr><td colspan="6" class="text-center">No hay mercadería registrada.</td></tr>';
                 return;
             }
-            tabla.innerHTML = ''; // Limpiar la tabla
+            tabla.innerHTML = ''; 
             data.forEach(item => {
-                const precio = parseFloat(item.precio) || 0; // Convertir precio a número
+                const precio = parseFloat(item.precio) || 0; 
                 const cantidad = parseInt(item.cantidad, 10) || 0;
                 const fila = `
                     <tr data-id="${item.idMercaderia}">
@@ -347,17 +344,13 @@ function cargarMercaderia(idCliente) {
             console.error('Error al cargar la mercadería:', error);
         });
 }
-
-// Mostrar modal y cargar datos
 function abrirMercaderia(idCliente) {
-    clienteActivoId = idCliente; // Guardar cliente activo
-    document.getElementById('mercaderiaForm').reset(); // Limpiar formulario
-    cargarMercaderia(clienteActivoId); // Cargar los datos del cliente
+    clienteActivoId = idCliente; 
+    document.getElementById('mercaderiaForm').reset(); 
+    cargarMercaderia(clienteActivoId); 
     const modal = new bootstrap.Modal(document.getElementById('mercaderiaModal'));
     modal.show();
 }
-
-// Enviar datos desde el formulario
 document.getElementById('mercaderiaForm').addEventListener('submit', function (e) {
     e.preventDefault();
 

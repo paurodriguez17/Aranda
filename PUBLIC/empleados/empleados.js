@@ -37,60 +37,67 @@ function registrarEmpleado(empleado) {
         .catch((error) => console.error('Error:', error));
 }
 function mostrarEmpleados() {
-    // Realiza una solicitud al servidor para obtener todos los empleados
     fetch('http://localhost:3000/obtener-empleados')
         .then(response => response.json())
         .then(empleados => {
-            // Obtén las tablas correspondientes al tipo de empleado
             const tablaMensuales = document.getElementById('empleadosMensuales').querySelector('tbody');
             const tablaPorHora = document.getElementById('empleadosPorHora').querySelector('tbody');
-
-            // Limpia el contenido de las tablas antes de agregar nuevos datos
             tablaMensuales.innerHTML = '';
             tablaPorHora.innerHTML = '';
+
+            let totalMensuales = 0;
+            let totalPorHora = 0;
+
             empleados.forEach((empleado) => {
                 const row = document.createElement('tr');
                 row.setAttribute('data-id', empleado.id); // Asocia la fila al ID del empleado
+
+                const totalPago = parseFloat(empleado.total_pago) || 0;
+
                 if (empleado.tipo_pago === 'Mensual') {
+                    totalMensuales += totalPago;
                     row.innerHTML = `
-                    <td>${empleado.tipo_pago}</td>
-                    <td>${empleado.nombre}</td>
-                    <td>${empleado.dni}</td>
-                    <td>${empleado.legajo}</td>
-                    <td>${empleado.telefono}</td>
-                    <td class="salario_base">${empleado.salario_base}</td>
-                    <td>${empleado.horas_trabajadas || 0}</td>
-                    <td>${empleado.total_pago || 0}</td>
-                    <td>${empleado.descuento || 0}</td>
-                    <td>
-                        <button class="btn btn-info btn-sm" onclick="registrarAsistencia(${empleado.id}, '${empleado.tipo_pago}')">Registrar Asistencia</button>
-                        <button class="btn btn-warning btn-sm" onclick="aplicarDescuento(${empleado.id})">Aplicar Descuento</button>
-                        <button class="btn btn-danger btn-sm" onclick="eliminarEmpleado(${empleado.id})">Eliminar</button>
-                        <button class="btn btn-primary btn-sm" onclick="mostrarActualizarSueldo(${empleado.id}, '${empleado.tipo_pago}', ${empleado.salario_base})">Actualizar Sueldo</button>
-                    </td>                
+                        <td>${empleado.tipo_pago}</td>
+                        <td>${empleado.nombre}</td>
+                        <td>${empleado.dni}</td>
+                        <td>${empleado.legajo}</td>
+                        <td>${empleado.telefono}</td>
+                        <td class="salario_base">${empleado.salario_base}</td>
+                        <td>${empleado.horas_trabajadas || 0}</td>
+                        <td>${empleado.total_pago || 0}</td>
+                        <td>${empleado.descuento || 0}</td>
+                        <td>
+                            <button class="btn btn-info btn-sm" onclick="registrarAsistencia(${empleado.id}, '${empleado.tipo_pago}')">Registrar Asistencia</button>
+                            <button class="btn btn-warning btn-sm" onclick="aplicarDescuento(${empleado.id})">Aplicar Descuento</button>
+                            <button class="btn btn-danger btn-sm" onclick="eliminarEmpleado(${empleado.id})">Eliminar</button>
+                            <button class="btn btn-primary btn-sm" onclick="mostrarActualizarSueldo(${empleado.id}, '${empleado.tipo_pago}', ${empleado.salario_base})">Actualizar Sueldo</button>
+                        </td>                
                     `;
                     tablaMensuales.appendChild(row);
                 } else if (empleado.tipo_pago === 'PorHora') {
+                    totalPorHora += totalPago;
                     row.innerHTML = `
-                    <td>${empleado.tipo_pago}</td>
-                    <td>${empleado.nombre}</td>
-                    <td>${empleado.dni}</td>
-                    <td>${empleado.legajo}</td>
-                    <td>${empleado.telefono}</td>
-                    <td class="salario_base">${empleado.salario_base}</td>
-                    <td>${empleado.horas_trabajadas || 0}</td>
-                    <td>${empleado.total_pago || 0}</td>
-                    <td>${empleado.descuento || 0}</td>
-                    <td>
-                        <button class="btn btn-info btn-sm" onclick="registrarAsistencia(${empleado.id}, '${empleado.tipo_pago}')">Registrar Asistencia</button>
-                        <button class="btn btn-warning btn-sm" onclick="aplicarDescuento(${empleado.id})">Aplicar Descuento</button>
-                        <button class="btn btn-danger btn-sm" onclick="eliminarEmpleado(${empleado.id})">Eliminar</button>
-                        <button class="btn btn-primary btn-sm" onclick="mostrarActualizarSueldo(${empleado.id}, '${empleado.tipo_pago}', ${empleado.salario_base})">Actualizar Sueldo</button>
-                    </td>                
+                        <td>${empleado.tipo_pago}</td>
+                        <td>${empleado.nombre}</td>
+                        <td>${empleado.dni}</td>
+                        <td>${empleado.legajo}</td>
+                        <td>${empleado.telefono}</td>
+                        <td class="salario_base">${empleado.salario_base}</td>
+                        <td>${empleado.horas_trabajadas || 0}</td>
+                        <td>${empleado.total_pago || 0}</td>
+                        <td>${empleado.descuento || 0}</td>
+                        <td>
+                            <button class="btn btn-info btn-sm" onclick="registrarAsistencia(${empleado.id}, '${empleado.tipo_pago}')">Registrar Asistencia</button>
+                            <button class="btn btn-warning btn-sm" onclick="aplicarDescuento(${empleado.id})">Aplicar Descuento</button>
+                            <button class="btn btn-danger btn-sm" onclick="eliminarEmpleado(${empleado.id})">Eliminar</button>
+                            <button class="btn btn-primary btn-sm" onclick="mostrarActualizarSueldo(${empleado.id}, '${empleado.tipo_pago}', ${empleado.salario_base})">Actualizar Sueldo</button>
+                        </td>                
                     `;
                     tablaPorHora.appendChild(row);
                 }
             });
+            document.getElementById('totalMensuales').textContent = `Total Mensuales: $${totalMensuales.toFixed(2)}`;
+            document.getElementById('totalPorHora').textContent = `Total Por Hora: $${totalPorHora.toFixed(2)}`;
         })
         .catch(error => {
             console.error('Error al obtener los empleados:', error);
@@ -130,37 +137,42 @@ function aplicarDescuento(empleadoId) {
 }
 document.getElementById('formDescuento').addEventListener('submit', function (event) {
     event.preventDefault();
-    console.log("Formulario de descuento enviado"); // Verificar si el evento se dispara
     const empleadoId = document.getElementById('empleadoDescuentoId').value;
-    const descuento = parseFloat(document.getElementById('montoDescuento').value);
-    console.log("ID del empleado:", empleadoId); // Verificar que el ID del empleado es correcto
-    console.log("Monto del descuento:", descuento); // Verificar que el monto de descuento es correcto
-    if (isNaN(descuento) || descuento <= 0) {
+    const descuentoNuevo = parseFloat(document.getElementById('montoDescuento').value);
+
+    if (isNaN(descuentoNuevo) || descuentoNuevo <= 0) {
         alert('Por favor, ingresa un monto de descuento válido.');
         return;
     }
-    fetch(`http://localhost:3000/aplicar-descuento/${empleadoId}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ descuento: descuento })
-    })
-        .then(response => {
-            console.log("Respuesta del servidor recibida"); // Confirmar que la respuesta llega
-            return response.json();
-        })
-        .then(data => {
-            console.log("Datos de respuesta:", data); // Verificar el contenido de la respuesta
-            if (data.success) { // Verificar que el backend responde con un mensaje de éxito
-                alert(data.message || 'Descuento aplicado correctamente.');
-                $('#descuentoModal').modal('hide');
-                mostrarEmpleados(); // Refresca la tabla de empleados
-            } else {
-                alert(data.message || 'No se pudo aplicar el descuento.');
-            }
+
+    fetch(`http://localhost:3000/obtener-empleado/${empleadoId}`) // Obtén el empleado actual
+        .then(response => response.json())
+        .then(empleado => {
+            const descuentoAcumulado = (parseFloat(empleado.descuento) || 0) + descuentoNuevo;
+
+            fetch(`http://localhost:3000/aplicar-descuento/${empleadoId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ descuento: descuentoAcumulado })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(data.message || 'Descuento aplicado correctamente.');
+                        $('#descuentoModal').modal('hide');
+                        mostrarEmpleados(); // Refresca la tabla de empleados
+                    } else {
+                        alert(data.message || 'No se pudo aplicar el descuento.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error en la solicitud:', error);
+                    alert('Ocurrió un error en la solicitud. Verifica la consola para más detalles.');
+                });
         })
         .catch(error => {
-            console.error('Error en la solicitud:', error);
-            alert('Ocurrió un error en la solicitud. Verifica la consola para más detalles.');
+            console.error('Error al obtener el empleado:', error);
+            alert('Hubo un problema al obtener los datos del empleado.');
         });
 });
 function registrarAsistencia(empleadoId, tipoPago) {

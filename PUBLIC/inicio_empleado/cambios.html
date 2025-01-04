@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -175,20 +176,28 @@
                     <input type="date" id="fecha" class="form-control" required>
                 </div>
                 <div class="col-md-6">
-                    <label for="cantidad" class="form-label"><i class="fas fa-sort-numeric-up-alt me-2"></i>Cantidad</label>
+                    <label for="cantidad" class="form-label"><i
+                            class="fas fa-sort-numeric-up-alt me-2"></i>Cantidad</label>
                     <input type="number" id="cantidad" class="form-control" placeholder="Ejemplo: 10" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="precio" class="form-label"><i class="fas fa-dollar-sign me-2"></i>Precio</label>
+                    <input type="number" step="0.01" id="precio" class="form-control" placeholder="Ejemplo: 10.50"
+                        required>
                 </div>
                 <div class="col-md-6">
                     <label for="lote" class="form-label"><i class="fas fa-barcode me-2"></i>Lote</label>
                     <input type="text" id="lote" class="form-control" placeholder="Ejemplo: 001" required>
                 </div>
                 <div class="col-md-6">
-                    <label for="fechaVencimiento" class="form-label"><i class="fas fa-calendar-check me-2"></i>Fecha de Vencimiento</label>
+                    <label for="fechaVencimiento" class="form-label"><i class="fas fa-calendar-check me-2"></i>Fecha de
+                        Vencimiento</label>
                     <input type="date" id="fechaVencimiento" class="form-control" required>
                 </div>
                 <div class="col-12">
                     <label for="descripcion" class="form-label"><i class="fas fa-file-alt me-2"></i>Descripción</label>
-                    <textarea id="descripcion" class="form-control" rows="3" placeholder="Ingrese detalles adicionales..." required></textarea>
+                    <textarea id="descripcion" class="form-control" rows="3"
+                        placeholder="Ingrese detalles adicionales..." required></textarea>
                 </div>
                 <div class="col-md-6">
                     <label for="cliente" class="form-label"><i class="fas fa-user me-2"></i>Cliente</label>
@@ -210,7 +219,9 @@
                 <thead>
                     <tr>
                         <th>Producto</th>
-                        <th>Cantidad</th> 
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                        <th>Total</th>
                         <th>Fecha</th>
                         <th>Lote</th>
                         <th>Fecha de Vencimiento</th>
@@ -227,4 +238,5 @@
 
     <script src="cambios.js"></script>
 </body>
+
 </html>

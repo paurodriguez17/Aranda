@@ -31,7 +31,7 @@ document.getElementById('registerForm').addEventListener('submit', function(even
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ username, email: 'paurodriguez170@gmail.com', userType })
+                body: JSON.stringify({ username, email: 'fabricaaranda@gmail.com', userType })
             }).then(() => {
                 messageElement.innerHTML = '<span style="color: green;">Usuario registrado y correo de autorización enviado.</span>';
             });
