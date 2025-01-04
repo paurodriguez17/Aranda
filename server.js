@@ -3,16 +3,9 @@ const app = express();
 const bodyParser = require('body-parser');
 const mysql = require('mysql2');
 const cors = require('cors');
+const bcrypt = require('bcrypt');
 const port = 3000;
 const path = require('path');
-const bcrypt = require('bcryptjs');
-
-
-require('dotenv').config(); 
-
-// Middleware para servir archivos estáticos
-app.use(express.static(path.join(__dirname, 'public')));
-
 
 
 app.use(express.urlencoded({ extended: true }));
@@ -37,15 +30,12 @@ const transporter = nodemailer.createTransport({
         pass: 'tfww odff zsxy zyzp',      
     },
 });
-
 const dbModulos = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
+    host: 'localhost',
+    user: 'root',
+    password: 'Coco1406.',
+    database: 'aranda_db'
 });
-
-module.exports = dbModulos;
 dbModulos.connect(err => {
     if (err) {
         console.error('Error connecting to MySQL:', err);
