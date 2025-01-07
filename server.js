@@ -33,7 +33,7 @@ const transporter = nodemailer.createTransport({
 const dbModulos = mysql.createConnection({
     host: 'mysql.railway.internal',
     user: 'root',
-    password: 'ssYPDIVYLkgRvuOjvohjugYTGpicvnzH',
+    password: 'aHWHmMyXsbyCjcJXytySnilSRFjXzTNI',
     database: 'railway',
     port:3306
 });
