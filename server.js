@@ -31,10 +31,11 @@ const transporter = nodemailer.createTransport({
     },
 });
 const dbModulos = mysql.createConnection({
-    host: 'localhost',
+    host: 'mysql.railway.internal',
     user: 'root',
-    password: 'Coco1406.',
-    database: 'aranda_db'
+    password: 'ssYPDIVYLkgRvuOjvohjugYTGpicvnzH',
+    database: 'railway',
+    port:3306
 });
 dbModulos.connect(err => {
     if (err) {
