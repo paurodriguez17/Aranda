@@ -31,11 +31,12 @@ const transporter = nodemailer.createTransport({
     },
 });
 const dbModulos = mysql.createConnection({
-    host: 'mysql.railway.internal',
+    host: 'autorack.proxy.rlwy.net',
     user: 'root',
     password: 'aHWHmMyXsbyCjcJXytySnilSRFjXzTNI',
     database: 'railway',
-    port:3306
+    port:28584,
+    uri:"jdbc:mysql://autorack.proxy.rlwy.net:28584/railway"
 });
 dbModulos.connect(err => {
     if (err) {
