@@ -36,7 +36,7 @@ const dbModulos = mysql.createConnection({
     password: 'aHWHmMyXsbyCjcJXytySnilSRFjXzTNI',
     database: 'railway',
     port:28584,
-    uri:"jdbc:mysql://autorack.proxy.rlwy.net:28584/railway"
+    
 });
 dbModulos.connect(err => {
     if (err) {
